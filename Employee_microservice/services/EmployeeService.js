@@ -1,5 +1,6 @@
 const EmployeeModel = require("../model/EmployeeSchema");
- 
+
+
 exports.getAllEmployees = async () => {
   return await EmployeeModel.find();
 };
@@ -13,6 +14,7 @@ exports.getEmployeeById = async (uid) => {
  
 exports.updateEmployee = async (uid, Employee) => {
   return await EmployeeModel.findOneAndUpdate({id:uid}, Employee);
+  // return await EmployeeModel.findOneAndUpdate({id:uid}, {ctc:Employee.ctc});
 };
  
 exports.deleteEmployee = async (uid) => {

@@ -1,12 +1,4 @@
-const express = require("express");
-const app = express();
-const EmployeeRouter = require("./router/PayrollRoutes");
-
-const mongoose = require('mongoose');
-
-
-//shart
-const PayrollDataService = require("./services/PayrollService");
+const PayrollDataService = require("../services/PayrollService");
 
 var kafka = require('kafka-node')
 var Consumer = kafka.Consumer;
@@ -46,24 +38,3 @@ console.log(e);
 consumer.on('error', function (err) {
   console.log('error', err);
 });
-
-//end
-
-
-
-
-
-
-//middleware
-app.use(express.json());
-app.use("/api/payroll", EmployeeRouter);
-
-mongoose.connect('mongodb://127.0.0.1:27017/my-db')
-  .then(() => console.log('MongoDB Connected!'));
-
- 
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
-});
- 
-module.exports = app; 

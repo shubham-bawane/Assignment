@@ -1,4 +1,7 @@
 const EmployeeService = require("../services/EmployeeService");
+const {SendToKafka} = require("../services/kafkaProcuderService");
+
+
  
 exports.getAllEmployees = async (req, res) => {
   try {
@@ -36,6 +39,10 @@ exports.updateEmployee = async (req, res) => {
   try {
     const Employee = await EmployeeService.updateEmployee(req.params.id, req.body);
     res.json({ data: Employee, status: "success" });
+    // console.log(Employee.ctc);
+    // console.log(Employee.id);
+    SendToKafka(Employee.id, Employee.ctc);
+
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
